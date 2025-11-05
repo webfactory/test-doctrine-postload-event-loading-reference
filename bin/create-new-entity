@@ -1,0 +1,16 @@
+#!/usr/bin/env ./bin/php
+
+<?php
+
+include_once __DIR__ . '/../vendor/autoload.php';
+
+use Entity\Test;
+
+$entityManager = EntityManagerFactory::create();
+
+$entity = new Test();
+$entityManager->persist($entity);
+
+$entityManager->flush();
+
+echo 'Entity mit ID '.$entity->id.' erstellt.'.PHP_EOL;

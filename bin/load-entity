@@ -1,0 +1,15 @@
+#!/usr/bin/env ./bin/php
+
+<?php
+
+include_once __DIR__ . '/../vendor/autoload.php';
+
+use Entity\Test;
+
+$id = $argv[1] ?? exit('Usage: load-entity-reference-and-access-property <id>'.PHP_EOL);
+
+$entityManager = EntityManagerFactory::create();
+$repository = $entityManager->getRepository(Test::class);
+
+$entity = $entityManager->find(Test::class, $id);
+echo 'ID (accessed from object): '.$entity->id.PHP_EOL;
