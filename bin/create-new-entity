@@ -5,10 +5,11 @@
 include_once __DIR__ . '/../vendor/autoload.php';
 
 use Entity\Test;
+use Entity\TestEmbeddable;
 
 $entityManager = EntityManagerFactory::create();
 
-$entity = new Test('test');
+$entity = new Test(new TestEmbeddable('test'));
 $entityManager->persist($entity);
 
 $entityManager->flush();

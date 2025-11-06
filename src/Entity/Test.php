@@ -14,9 +14,8 @@ class Test
     public ?int $id = null;
 
     public function __construct(
-        #[ORM\Column]
-        public string $content = ''
-    )
-    {
+        #[ORM\Embedded]
+        public TestEmbeddable $embeddable
+    ) {
     }
 }

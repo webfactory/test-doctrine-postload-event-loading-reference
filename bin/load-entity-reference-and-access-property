@@ -13,7 +13,7 @@ $repository = $entityManager->getRepository(Test::class);
 
 $entity = $entityManager->getReference(Test::class, $id);
 echo 'Entity reference loaded. Accessing property...'.PHP_EOL;
-echo 'Value of "content" property: '.$entity->content.PHP_EOL;
+echo 'Value of "content" property: '.$entity->embeddable->content.PHP_EOL;
 
 echo PHP_EOL;
 
