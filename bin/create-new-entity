@@ -8,9 +8,9 @@ use Entity\Test;
 
 $entityManager = EntityManagerFactory::create();
 
-$entity = new Test();
+$entity = new Test('test');
 $entityManager->persist($entity);
 
 $entityManager->flush();
 
-echo 'Entity mit ID '.$entity->id.' erstellt.'.PHP_EOL;
+echo 'Created Test entity with ID '.$entity->id.'.'.PHP_EOL;

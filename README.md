@@ -23,15 +23,26 @@ bin/load-entity 1 # Output should contain: PostLoad EventListener called for Ent
 Load the same entity by reference and access a property to trigger initialisation
 
 ```bash
-bin/load-entity-by-reference-and-access-proprty 1 # Output will NOT contain: PostLoad EventListener called
+bin/load-entity-by-reference-and-access-proprty 1 # Will the output contain: "PostLoad EventListener called"?
 ```
 
 ## Explanation
 
-When loading entities by first retrieving a reference and then letting it initialise, Doctrine does not trigger PostLoad
-events. This happens neither if Doctrine implements the reference as a Proxy (Doctrine < 4.0 default behaviour) ~~nor if
-it uses a "ghost object" (EntityManager created with `$config->enableNativeLazyObjects(true);`, PHP >=8.4)~~ this has not
-been tested yet.
+When loading an entity by reference, whether the object will be initialised on a method call or property access depends
+on the implementation of uninitialised object. Using either doctrine/orm 2.x or 3.x, there are 3 possible
+implementations:
 
-If you depend on the PostLoad event to perform some initialisation logic (e.g. loading binary data into properties),
-this can lead to incomplete entity objects being used.
+### Proxy using Doctrines Proxy Generator (doctrine 2.x default, gone in doctrine 3.x)
+
+Proxies will be initialised on method calls.
+
+### "Lazy Ghost Object" using Symfony's VarExporter\LazyGhostTrait (doctrine 3.x default)
+
+Proxies will be initialised only when accessing mapped properties. This could become a problem if you want to initialise
+an unmapped property via the PostLoad event.
+
+### PHP 8.4 Native lazy objects (requires PHP 8.4+ and doctrine/orm 3.x and `$config->enableNativeLazyObjects(true);`)
+
+Could not test as we have no PHP 8.4 environment yet.
+
+See https://github.com/doctrine/DoctrineBundle/issues/1651#issuecomment-1684297751

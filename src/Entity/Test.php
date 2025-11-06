@@ -12,4 +12,11 @@ class Test
     #[ORM\GeneratedValue]
     #[ORM\Column]
     public ?int $id = null;
+
+    public function __construct(
+        #[ORM\Column]
+        public string $content = ''
+    )
+    {
+    }
 }
