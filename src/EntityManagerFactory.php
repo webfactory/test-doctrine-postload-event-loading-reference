@@ -15,7 +15,7 @@ class EntityManagerFactory
             paths: [__DIR__],
             isDevMode: true,
         );
-        $config->enableNativeLazyObjects(true);
+        $config->setLazyGhostObjectEnabled(true);
 
         $connection = DriverManager::getConnection([
             'driver' => 'pdo_sqlite',
