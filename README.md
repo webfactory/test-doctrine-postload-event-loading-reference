@@ -26,6 +26,10 @@ Load the same entity by reference and access a property to trigger initialisatio
 bin/load-entity-by-reference-and-access-proprty 1 # Will the output contain: "PostLoad EventListener called"?
 ```
 
+This repository is there to change the implementation around (upgrade/downgrade Doctrine versions, change the
+configuration in [`EntityManagerFactory`](./src/EntityManagerFactory.php), use different kinds of properties in the
+Test entity) and test how initialisation/PostLoad event behaviour changes.
+
 ## Explanation
 
 When loading an entity by reference, whether the object will be initialised on a method call or property access depends
@@ -36,13 +40,18 @@ implementations:
 
 Proxies will be initialised on method calls.
 
+See https://github.com/doctrine/DoctrineBundle/issues/1651#issuecomment-1684297751
+
 ### "Lazy Ghost Object" using Symfony's VarExporter\LazyGhostTrait (doctrine 3.x default)
 
 Proxies will be initialised only when accessing mapped properties. This could become a problem if you want to initialise
 an unmapped property via the PostLoad event.
 
+See https://github.com/doctrine/DoctrineBundle/issues/1651#issuecomment-1684297751
+
 ### PHP 8.4 Native lazy objects (requires PHP 8.4+ and doctrine/orm 3.x and `$config->enableNativeLazyObjects(true);`)
 
 Could not test as we have no PHP 8.4 environment yet.
 
-See https://github.com/doctrine/DoctrineBundle/issues/1651#issuecomment-1684297751
+See https://www.php.net/manual/en/language.oop5.lazy-objects.php#language.oop5.lazy-objects.initialization-triggers
+
