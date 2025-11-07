@@ -1,9 +1,16 @@
 {
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://composer.webfactory.de"
+    }
+  ],
   "require": {
     "doctrine/orm": "^2.0",
     "doctrine/dbal": "^3.0",
     "symfony/cache": "^7.3",
-    "doctrine/common": "^3.0"
+    "doctrine/common": "^3.0",
+    "webfactory/download-bundle": "^4.6"
   },
   "autoload": {
     "psr-4": {

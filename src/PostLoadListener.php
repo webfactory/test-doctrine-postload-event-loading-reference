@@ -16,6 +16,6 @@ class PostLoadListener
             return;
         }
 
-        $object->embeddable->unmappedProperty = 'Set by PostLoadListener';
+        // $object->download->unmappedProperty = 'Set by PostLoadListener';
     }
 }

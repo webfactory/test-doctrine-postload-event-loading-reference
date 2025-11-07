@@ -6,6 +6,9 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\ORMSetup;
+use Webfactory\Bundle\DownloadBundle\Doctrine\DelegatingProviderFactory;
+use Webfactory\Bundle\DownloadBundle\Doctrine\DownloadInjectionListener;
+use Webfactory\Bundle\DownloadBundle\Doctrine\PropertyFactory;
 
 class EntityManagerFactory
 {
@@ -23,8 +26,12 @@ class EntityManagerFactory
         ], $config);
 
         $eventManager = new EventManager();
-        $eventManager->addEventListener([Events::postLoad], new PostLoadListener());
+        // $eventManager->addEventListener([Events::postLoad], new PostLoadListener());
 
-        return new EntityManager($connection, $config, $eventManager);
+        $entityManager = new EntityManager($connection, $config, $eventManager);
+        $entityManager->getEventManager()->addEventSubscriber(new PostLoadListener());
+        $entityManager->getEventManager()->addEventSubscriber(new DownloadInjectionListener(new PropertyFactory(new DelegatingProviderFactory(), $entityManager)));
+
+        return $entityManager;
     }
 }

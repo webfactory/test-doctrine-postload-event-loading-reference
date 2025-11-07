@@ -5,11 +5,12 @@
 include_once __DIR__ . '/../vendor/autoload.php';
 
 use Entity\Test;
-use Entity\TestEmbeddable;
+use Webfactory\Bundle\DownloadBundle\Entity\EmbeddableDownload;
+use Webfactory\Download\Download;
 
 $entityManager = EntityManagerFactory::create();
 
-$entity = new Test(new TestEmbeddable('test'));
+$entity = new Test(EmbeddableDownload::createFrom(new Download(new \GuzzleHttp\Psr7\Stream(tmpfile()))));
 $entityManager->persist($entity);
 
 $entityManager->flush();
