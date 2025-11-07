@@ -9,7 +9,13 @@ class TestEmbeddable
 {
     public function __construct(
         #[ORM\Column]
-        public string $content = ''
+        public string $content = '',
+        public string $unmappedProperty = ''
     ) {
+    }
+
+    public function getUnmappedProperty(): string
+    {
+        return $this->unmappedProperty;
     }
 }

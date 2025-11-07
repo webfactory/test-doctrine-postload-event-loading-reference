@@ -49,9 +49,14 @@ an unmapped property via the PostLoad event.
 
 See https://github.com/doctrine/DoctrineBundle/issues/1651#issuecomment-1684297751
 
+However, using this repository, we found out that this is **not** true for unmapped properties inside Embeddables:
+Access to unmapped properties inside Embeddables will trigger initialisation (unlike unmapped properties directly on
+the Entity).
+
 ### PHP 8.4 Native lazy objects (requires PHP 8.4+ and doctrine/orm 3.x and `$config->enableNativeLazyObjects(true);`)
 
 Could not test as we have no PHP 8.4 environment yet.
 
-See https://www.php.net/manual/en/language.oop5.lazy-objects.php#language.oop5.lazy-objects.initialization-triggers
+https://www.php.net/manual/en/language.oop5.lazy-objects.php#language.oop5.lazy-objects.initialization-triggers implies
+that access to all properties (mapped and unmapped) will trigger initialisation.
 
