@@ -30,7 +30,7 @@ This repository is there to change the implementation around (upgrade/downgrade 
 configuration in [`EntityManagerFactory`](./src/EntityManagerFactory.php), use different kinds of properties in the
 Test entity) and test how initialisation/PostLoad event behaviour changes.
 
-## Explanation
+## Findings
 
 When loading an entity by reference, whether the object will be initialised on a method call or property access depends
 on the implementation of uninitialised object. Using either doctrine/orm 2.x or 3.x, there are 3 possible
