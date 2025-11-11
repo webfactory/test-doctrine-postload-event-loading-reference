@@ -44,7 +44,11 @@ See https://github.com/doctrine/DoctrineBundle/issues/1651#issuecomment-16842977
 
 ### "Lazy Ghost Object" using Symfony's VarExporter\LazyGhostTrait (doctrine 3.x default)
 
-Proxies will be initialised only when accessing mapped properties. This could become a problem if you want to initialise
+> [!NOTE]
+> The problem found here has been fixed in https://github.com/doctrine/orm/commit/a2d510c6f418af51ae5679e1f649a9d501598bef!
+> The fix is available in current versions of doctrine/orm 3 and 2. Current versions behave like [PHP 8.4 Native lazy objects](#php-84-native-lazy-objects-requires-php-84-and-doctrineorm-3x-and-config-enablenativelazyobjectstrue).
+
+In older versions of Doctrine 2 and 3, proxies will be initialised only when accessing mapped properties. This could become a problem if you want to initialise
 an unmapped property via the PostLoad event.
 
 See https://github.com/doctrine/DoctrineBundle/issues/1651#issuecomment-1684297751
